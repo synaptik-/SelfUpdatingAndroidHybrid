@@ -19,12 +19,12 @@ public class AppWebViewClient extends WebViewClient {
     private static final String TAG = AppWebViewClient.class.getSimpleName();
     private Context mContext;
 
-    private List<BaseInterceptor> interceptors;
+    private List<BaseInterceptor> mInterceptors;
 
     public AppWebViewClient(Context context) {
         this.mContext = context;
-        this.interceptors = new ArrayList<>();
-        this.interceptors.add(new FileLoaderInterceptor(this.mContext));
+        this.mInterceptors = new ArrayList<>();
+        this.mInterceptors.add(new FileLoaderInterceptor(this.mContext));
     }
 
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -38,9 +38,10 @@ public class AppWebViewClient extends WebViewClient {
     }
 
     public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+        Log.d(TAG, "shouldInterceptRequest(..., " + url + ")");
         WebResourceResponse result = null;
         Uri uri = Uri.parse(url);
-        for (BaseInterceptor interceptor : interceptors) {
+        for (BaseInterceptor interceptor : mInterceptors) {
             if (interceptor.canHandle(uri)) {
                 result = interceptor.handle(uri);
                 break;

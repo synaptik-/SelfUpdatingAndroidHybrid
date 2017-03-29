@@ -54,7 +54,8 @@ public class NativeBridge {
         Log.i(TAG, "isUpdateAvailable(" + inputVersion + ")");
         boolean result = false;
 
-        // TODO - You could fetch a remote file that contains the version of the latest update and compare the two values
+        // TODO - Here is where you would fetch the manifest file, process it, and compare its version to the passed in inputVersion
+        // For the sake of simplicity it is hard coded.
         if (inputVersion != null && inputVersion.equals("1.0")) {
             result = true;
         }
